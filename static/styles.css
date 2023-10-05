@@ -1,0 +1,122 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Light gray background */
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+h1 {
+    font-size: 36px; /* Larger font size */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for contrast */
+}
+
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Rounded corners */
+}
+
+.menu h2,
+.order h2 {
+    font-size: 24px; /* Slightly larger font size */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* CSS for vertical alignment of images */
+.image-container {
+    text-align: center; /* Center the content horizontally */
+}
+
+.vertical-align-middle {
+    display: inline-block; /* Display the images as inline-block elements */
+    vertical-align: middle; /* Vertically align the images */
+    max-width: 100%; /* Ensure the image doesn't exceed the container width */
+}
+
+/* Additional CSS to remove any default padding and margins */
+table {
+    border-collapse: collapse;
+    width: 100%; /* Ensure the table takes up the full width */
+}
+
+table, th, td {
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+    border: 1px solid black;
+    text-align: center;
+    vertical-align: middle;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+li img {
+    width: 40px; /* Adjust image size */
+    height: 40px;
+    margin-right: 10px; /* Spacing between image and text */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="number"] {
+    width: 100px;
+    padding: 10px; /* Larger input padding */
+    margin-bottom: 20px; /* More spacing between inputs */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #ff5733; /* Modern orange color */
+    color: #fff;
+    padding: 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px; /* Larger font size */
+}
+
+button:hover {
+    background-color: #ff7048; /* Slightly darker on hover */
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    border-top-left-radius: 10px; /* Rounded corners on top */
+    border-top-right-radius: 10px;
+}

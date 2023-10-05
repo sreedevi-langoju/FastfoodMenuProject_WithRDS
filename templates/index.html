@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Fast Food Takeout</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Fast Food Ordering</h1>
+    </header>
+    <main>
+        <section class="menu">
+            <h2>Menu</h2>
+            <form action="{{ url_for('place_order') }}" method="post">
+                <table>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
+                    {% for item_key, item_value in menu.items() %}
+                    <tr>
+                        <td class="center">
+                            <div class="image-container">
+                                <img src="{{ url_for('static', filename=item_value.image) }}" alt="{{ item_value.name }} Image" width="100" height="100" class="vertical-align-middle">
+                            </div>
+                            {{ item_value.name }}
+                        </td>
+                        <td>${{ item_value.price }}</td>
+                        <td class="center">
+                            <input type="number" name="quantity_{{ item_key }}" min="1">
+                            <input type="hidden" name="item_num" value="{{ item_key }}">
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <button type="submit">Place Order</button>
+            </form>
+        </section>
+        <section class="order">
+           
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Per Scholas Fast Food Ordering</p>
+    </footer>
+</body>
+</html>

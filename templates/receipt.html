@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Order Receipt</title>
+</head>
+<body>
+    <header>
+        <h1>Order Receipt</h1>
+    </header>
+    <main>
+        <section class="order-details">
+            <h2>Your Order</h2>
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Item Price</th>
+                    <th>Total</th>
+                </tr>
+                {% for item_key, item_info in order.items() %}
+                <tr>
+                    <td class="center">{{ item_info.name }}</td>
+                    <td class="center">{{ item_info.quantity }}</td>
+                    <td class="center">${{ item_info.price }}</td>
+                    <td class="center">${{ (item_info.price * item_info.quantity) | round(2) }}</td><!-- Round the item total to 2 decimal places -->
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="3" class="center"><strong>Total Cost:</strong></td>
+                    <td class="center">${{ total_cost }}</td>
+                </tr>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; {{ current_year }} Per Scholas Fast Food Ordering</p>
+    </footer>
+</body>
+</html>
+
