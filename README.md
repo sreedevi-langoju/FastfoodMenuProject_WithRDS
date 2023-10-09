@@ -39,5 +39,20 @@ sudo yum install git -y
 git clone https://github.com/sreedevi-langoju/FastfoodMenuProject_WithRDS.git
 ```
 * Then Launch the EC2 instance
-  
+
+Step 4: Set Up MariaDB (RDS)
+
+* In the AWS Management Console, search for RDS.
+* Click "Create Database."
+* Choose "MariaDB" as the database engine.
+* Select the "Templates: Free Tier" option.
+* Give your database a name like "fastfoodDB."
+* Specify a username and password for the database.
+* Choose the DB instance class (e.g., db.t3.micro).
+* For connectivity, select "Connect to EC2 instance" and choose the EC2 instance created earlier.
+* Choose an automatic subnet group.
+* Set "Public access" to "No."
+* Create a new DB security group.
+* Review and launch the RDS instance.
+
 
