@@ -4,10 +4,10 @@ import mysql.connector
 def connectdatabase():
     # Database configuration
     db_config = {
-    'host': 'database-1.cojfedivjd6f.us-west-2.rds.amazonaws.com',
-    'user': 'admin',
-    'password': 'admin2801',
-    'database': 'fastfood'
+    'host': 'endpoint', # provide the RDS endpoint
+    'user': 'user',# provide your database user name 
+    'password': 'xx', # provide your database password
+    'database': 'fastfood' # provide your database name
     }
 
     # database connection
