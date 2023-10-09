@@ -3,6 +3,9 @@
 
 Developed an engaging Fast Food Menu Application using HTML, CSS, Python, and Flask, with AWS Services (EC2, Amazon RDS, MariaDB) for hosting and data management, enhancing customer ordering experiences and restaurant management
 
+![image](https://github.com/sreedevi-langoju/FastfoodMenuProject_WithRDS/assets/135724041/53673123-e2e9-4795-9a04-2b994c3b3c7b)
+
+
 Step 1: Create VPC, Subnets, and Internet Gateway
 
 * Go to the AWS VPC console.
