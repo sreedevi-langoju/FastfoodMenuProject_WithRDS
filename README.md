@@ -41,7 +41,7 @@ git clone https://github.com/sreedevi-langoju/FastfoodMenuProject_WithRDS.git
 * Then Launch the EC2 instance
 * Once EC2 is up and running , notedown the EC2 public and private IP addresses.
 
-#### Step 4: Set Up MariaDB (RDS)
+#### Step 3: Set Up Amazon RDS (MariaDB)
 
 * In the AWS Management Console, search for RDS.
 * Click "Create Database."
@@ -57,7 +57,7 @@ git clone https://github.com/sreedevi-langoju/FastfoodMenuProject_WithRDS.git
 * Review and launch the RDS instance.
 * Once RDs is up and running , notedown the RDS Endpoint
 
-#### Step 5: SSH into EC2
+#### Step 4: SSH into EC2
 
 Change the permissions on your key pair: chmod 400 <key-pair-filename>
 SSH into your EC2 instance:
@@ -65,7 +65,7 @@ SSH into your EC2 instance:
 ssh -i <key-pair-filename> ec2-user@<your-ec2-public-ip>
 
 ```
-#### Step 6: Connect to MariaDB (RDS) from EC2
+#### Step 5: Connect to MariaDB (RDS) from EC2
 
 * Use the database endpoint you copied: <rds-end-point>
 * Run the following command to connect to the MariaDB database:
@@ -74,7 +74,40 @@ mysql -h <rds-end-point> -P 3306 -u <user-name> -p
 
 ```
 * Enter your password when prompted.
-* Execute your database-related queries, e.g., create tables, insert data, etc. Refer to the sql queries document file in this repository.
+* Execute your database-related queries, e.g., create tables, insert data, etc. Refer to the RDS_Queries.pdf file in this repository.
 * Type exit; to exit the MariaDB command line.
+
+#### Step 6: Update Flask Application Configuration
+
+* Go back to your EC2 instance.
+* Navigate to your project folder, e.g.,
+  ``` cd FastfoodMenuProject_WithRDS ```
+* Open the databaselogic.py file using your favorite editor.
+``` vim databaselogic.py ```
+* Press Enter to edit the file and  update the database host (RDS Endpoint) , username, and password with the values you used in the step 3 (RDS setup).
+* Save and exit the file.
+
+Your project is now set up with VPC, EC2 instance, RDS (MariaDB), and your Flask application ready to run.
+
+#### Step 7: Start Your Flask Application
+
+* Go to your project folder,
+  e.g., ``` cd FastfoodMenuProject_WithRDS ```
+* Set the Flask app environment variable: export FLASK_APP=app.
+* Start your Flask application, e.g., flask run --host=0.0.0.0
+
+Once it running, you can goto web browser and type  http://<ec2-public-ip>:5000/ and enter
+
+![image](https://github.com/sreedevi-langoju/FastfoodMenuProject_WithRDS/assets/135724041/f8eed6eb-3a88-4170-8112-543b2a87bb07)
+
+Select items and add the quantity and place order , you will see the Order Receipt
+
+![image](https://github.com/sreedevi-langoju/FastfoodMenuProject_WithRDS/assets/135724041/aee5c9c3-055d-4e29-bca3-9cff0ad87ed9)
+
+![image](https://github.com/sreedevi-langoju/FastfoodMenuProject_WithRDS/assets/135724041/fdbd3cfe-e65e-403c-a6b9-e16bd7441c52)
+
+--------End--------- 
+
+
 
 
