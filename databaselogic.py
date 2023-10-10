@@ -1,13 +1,13 @@
 import mysql.connector
-
+#modified ssm
 #Establish a database connection
 def connectdatabase():
     # Database configuration
     db_config = {
-    'host': 'xxx',
-    'user': 'admi',
-    'password': 'ad',
-    'database': 'fastfood'
+    'host': 'endpoint', # provide the RDS endpoint
+    'user': 'user',# provide your database user name 
+    'password': 'xx', # provide your database password
+    'database': 'fastfood' # provide your database name
     }
 
     # database connection
