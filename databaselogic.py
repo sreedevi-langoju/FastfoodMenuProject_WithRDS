@@ -1,5 +1,5 @@
 import mysql.connector
-
+#modified ssm
 #Establish a database connection
 def connectdatabase():
     # Database configuration
