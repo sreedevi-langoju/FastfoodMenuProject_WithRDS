@@ -1,18 +1,5 @@
 import mysql.connector
-#modified ssm
-#Establish a database connection
-def connectdatabase():
-    # Database configuration
-    db_config = {
-    'host': 'endpoint', # provide the RDS endpoint
-    'user': 'user',# provide your database user name 
-    'password': 'xx', # provide your database password
-    'database': 'fastfood' # provide your database name
-    }
-
-    # database connection
-    connection = mysql.connector.connect(**db_config)
-    return connection
+from dbconnection import connect_database  # Import the connect_database function from db_connection.py
 
 def openCursor(connection):
     cursor = connection.cursor()
@@ -25,7 +12,7 @@ def closeAll(cursor,connection):
 
 def get_menu_from_database():
     try:
-        connection=connectdatabase()
+        connection=connect_database()
         cursor=openCursor(connection)
         # Execute the SQL query to fetch menu data
         query = "SELECT Item_Num, Item_Name, Price, Image FROM Menu"
@@ -49,7 +36,7 @@ def get_menu_from_database():
 
 
 def insert_order(order_date,total_cost):
-    connection=connectdatabase()
+    connection=connect_database()
     cursor=openCursor(connection)
     # Use prepared statements to insert the order into the database with the order date
     insert_orders_query = "INSERT INTO Orders (Order_Date, Total_Cost) VALUES (%s,%s)"
@@ -66,7 +53,7 @@ def insert_order(order_date,total_cost):
         closeAll(cursor,connection)
 
 def insert_orders_details(item_name, quantity, price, order_date,total_cost,order_num):
-    connection=connectdatabase()
+    connection=connect_database()
     cursor=openCursor(connection)
     # Use prepared statements to insert the order into the database with the order date
     insert_orders_details_query = "INSERT INTO Orders_Details (Order_Num,Order_Date,Item_Name,Price, Quantity) VALUES (%s, %s, %s, %s, %s)"
@@ -78,3 +65,6 @@ def insert_orders_details(item_name, quantity, price, order_date,total_cost,orde
         print(f"Database Error: {err}")
     finally:
         closeAll(cursor,connection)
+
+if __name__ == '__main__':
+    from dbconnection import connect_database
