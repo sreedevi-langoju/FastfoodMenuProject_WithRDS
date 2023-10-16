@@ -1,27 +1,47 @@
 import mysql.connector
-from dbconnection import connect_database  # Import the connect_database function from db_connection.py
+from dbconnection import connect_database
 
 def openCursor(connection):
     cursor = connection.cursor()
     return cursor
 
-def closeAll(cursor,connection):
+def closeAll(cursor, connection):
     cursor.close()
     connection.close()
-  
+
+def initialize_connection_and_cursor():
+    connection = None
+    cursor = None
+
+    try:
+        connection = connect_database()
+        cursor = connection.cursor()
+    except mysql.connector.Error as err:
+        print(f"Database Error: {err}")
+    
+    return connection, cursor
+
+def execute_query(connection, query, values=None):
+    cursor = openCursor(connection)
+    try:
+        if values is None:
+            cursor.execute(query)
+        else:
+            cursor.execute(query, values)
+        connection.commit()
+    except mysql.connector.Error as err:
+        print(f"Database Error: {err}")
+    finally:
+        closeAll(cursor, connection)
 
 def get_menu_from_database():
-    try:
-        connection=connect_database()
-        cursor=openCursor(connection)
-        # Execute the SQL query to fetch menu data
-        query = "SELECT Item_Num, Item_Name, Price, Image FROM Menu"
-        cursor.execute(query)
+    connection, cursor = initialize_connection_and_cursor()
 
-        # Fetch all the rows as a list of tuples
+    try:
+        query = "SELECT Item_Num, Item_Name, Price, Image FROM Menu"
+        cursor = execute_query(connection, query)
         menu_data = cursor.fetchall()
 
-        # Process the menu data and create the menu dictionary
         menu = {}
         for row in menu_data:
             Item_Num, name, price, image = row
@@ -31,40 +51,30 @@ def get_menu_from_database():
 
     except mysql.connector.Error as err:
         print(f"Database Error: {err}")
-    finally:
-        closeAll(cursor,connection)
 
+def insert_order(order_date, total_cost):
+    connection, cursor = initialize_connection_and_cursor()
 
-def insert_order(order_date,total_cost):
-    connection=connect_database()
-    cursor=openCursor(connection)
-    # Use prepared statements to insert the order into the database with the order date
-    insert_orders_query = "INSERT INTO Orders (Order_Date, Total_Cost) VALUES (%s,%s)"
-    orders_values = (order_date,total_cost)
     try:
-        cursor.execute(insert_orders_query, orders_values)
-        connection.commit()
-        # Retrieve the generated order_num
+        query = "INSERT INTO Orders (Order_Date, Total_Cost) VALUES (%s, %s)"
+        values = (order_date, total_cost)
+        cursor = execute_query(connection, query, values)
         order_num = cursor.lastrowid
         return order_num
-    except mysql.connector.Error as err:
-        print(f"Database Error: {err}")
-    finally:
-        closeAll(cursor,connection)
 
-def insert_orders_details(item_name, quantity, price, order_date,total_cost,order_num):
-    connection=connect_database()
-    cursor=openCursor(connection)
-    # Use prepared statements to insert the order into the database with the order date
-    insert_orders_details_query = "INSERT INTO Orders_Details (Order_Num,Order_Date,Item_Name,Price, Quantity) VALUES (%s, %s, %s, %s, %s)"
-    orders_details_values = (order_num,order_date,item_name,price,quantity)
-    try:
-        cursor.execute(insert_orders_details_query,orders_details_values)
-        connection.commit()
     except mysql.connector.Error as err:
         print(f"Database Error: {err}")
-    finally:
-        closeAll(cursor,connection)
+
+def insert_orders_details(item_name, quantity, price, order_date, total_cost, order_num):
+    connection, cursor = initialize_connection_and_cursor()
+
+    try:
+        query = "INSERT INTO Orders_Details (Order_Num, Order_Date, Item_Name, Price, Quantity) VALUES (%s, %s, %s, %s, %s)"
+        values = (order_num, order_date, item_name, price, quantity)
+        cursor = execute_query(connection, query, values)
+
+    except mysql.connector.Error as err:
+        print(f"Database Error: {err}")
 
 if __name__ == '__main__':
     from dbconnection import connect_database
