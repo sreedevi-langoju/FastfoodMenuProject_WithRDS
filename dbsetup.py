@@ -24,7 +24,7 @@ def setup_database():
 
     if connection and cursor:
         try:
-            # Create the 'Menu' table
+            # Attempt to create the 'Menu' table only if it doesn't exist
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS Menu (
                     Item_Num INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -34,19 +34,7 @@ def setup_database():
                 )
             """)
 
-            # Insert data into the 'Menu' table
-            menu_data = [
-                ('Hamburger', 5.99, 'Hamburger.jpeg'),
-                ('Cheeseburger', 6.49, 'Cheeseburger.jpeg'),
-                ('Chicken Sandwich', 7.99, 'Chicken_sandwich.jpeg'),
-                ('French Fries', 2.49, 'Frenchfries.jpeg'),
-                ('Soda', 1.49, 'Soda.jpeg')
-            ]
-
-            for item in menu_data:
-                cursor.execute("INSERT INTO Menu (Item_Name, Price, Image) VALUES (%s, %s, %s)", item)
-
-            # Create the 'Orders' table
+            # Attempt to create the 'Orders' table only if it doesn't exist
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS Orders (
                     Order_Num INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -55,7 +43,7 @@ def setup_database():
                 )
             """)
 
-            # Create the 'Orders_Details' table
+            # Attempt to create the 'Orders_Details' table only if it doesn't exist
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS Orders_Details (
                     Order_Detail_Num INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -68,12 +56,28 @@ def setup_database():
                 )
             """)
 
+            # Attempt to fetch data from the 'Menu' table
+            cursor.execute("SELECT COUNT(*) FROM Menu")
+            num_rows = cursor.fetchone()[0]
+
+            # If no data exists, insert data into the 'Menu' table
+            if num_rows == 0:
+                # Insert data into the 'Menu' table
+                menu_data = [
+                    ('Hamburger', 5.99, 'Hamburger.jpeg'),
+                    ('Cheeseburger', 6.49, 'Cheeseburger.jpeg'),
+                    ('Chicken Sandwich', 7.99, 'Chicken_sandwich.jpeg'),
+                    ('French Fries', 2.49, 'Frenchfries.jpeg'),
+                    ('Soda', 1.49, 'Soda.jpeg')
+                ]
+
+                for item in menu_data:
+                    cursor.execute("INSERT INTO Menu (Item_Name, Price, Image) VALUES (%s, %s, %s)", item)
+
+            # Similar logic for inserting data into 'Orders' and 'Orders_Details' tables
+
             connection.commit()
         except mysql.connector.Error as err:
             print(f"Database Error: {err}")
         finally:
             close_connection_and_cursor(connection, cursor)
-
-if __name__ == '__main__':
-    from dbconnection import connect_database
-    setup_database()
