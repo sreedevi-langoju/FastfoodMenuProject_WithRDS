@@ -36,19 +36,19 @@ def execute_query(connection, query, values=None):
 
 def get_menu_from_database():
     connection, cursor = initialize_connection_and_cursor()
-
+    print("connection successfull in database logic")
     try:
         query = "SELECT Item_Num, Item_Name, Price, Image FROM Menu"
         cursor = execute_query(connection, query)
         menu_data = cursor.fetchall()
-
+        print("fetching the menu_data in databaselogic ")
         menu = {}
         for row in menu_data:
             Item_Num, name, price, image = row
             menu[str(Item_Num)] = {'name': name, 'price': float(price), 'image': image}
-
+            print("Menu data name in for loop in database logic is ",name)
         return menu
-
+        
     except mysql.connector.Error as err:
         print(f"Database Error: {err}")
 

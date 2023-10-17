@@ -29,7 +29,7 @@ def connect_database():
 
         # Connect to the MariaDB server
         connection = mysql.connector.connect(**db_config)
-
+        print("connection successful")
         return connection
     except mysql.connector.Error as err:
         print(f"Database Connection Error: {err}")
