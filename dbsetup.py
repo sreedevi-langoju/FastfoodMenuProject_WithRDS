@@ -81,3 +81,7 @@ def setup_database():
             print(f"Database Error: {err}")
         finally:
             close_connection_and_cursor(connection, cursor)
+
+if __name__ == '__main__':
+    setup_database()
+    print("Database setup complete.")
