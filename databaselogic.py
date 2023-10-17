@@ -23,15 +23,10 @@ def initialize_connection_and_cursor():
 
 def get_menu_from_database():
     connection, cursor = initialize_connection_and_cursor()
-    print("Connection successful in database logic")
-    
     try:
         query = "SELECT Item_Num, Item_Name, Price, Image FROM Menu"
         cursor.execute(query)  # Execute the query
-        
         menu_data = cursor.fetchall()
-        print("Fetching the menu_data in database logic")
-        
         menu = {}
         for row in menu_data:
             Item_Num, name, price, image = row

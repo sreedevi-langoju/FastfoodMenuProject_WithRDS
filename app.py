@@ -1,14 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for
 import databaselogic
 import datetime
-import logging
 
 app = Flask(__name__)
-
 menu = databaselogic.get_menu_from_database()
-logging.info(f"Menu data: {menu}")
 order = {}
-#order_num = 0  # Define order_num as a global variable and initialize it to 0
 
 @app.route('/', methods=['GET', 'POST'])
 def place_order():
